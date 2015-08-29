@@ -1,0 +1,170 @@
+@import "compass/typography/links/link-colors";
+@import "compass/layout/sticky-footer";
+    
+a {  
+	text-decoration: none;
+	// link-colors($normal, $hover, $active, $visited, $focus)
+  @include link-colors($color-dark, $color-brand, $color-brand, $color-dark, $color-brand)
+}
+
+@include sticky-footer($base-unit-xl * 1em, ".page", ".push-footer", ".footer");
+
+html {
+	background-color: $color-base-bg;
+  font-family: 'Roboto Condensed', sans-serif;
+  color: $color-base-text;
+}
+
+h1, .xxl {
+  letter-spacing: -0.04em;
+  font-weight: 300; 
+}
+
+h2, .xl {
+  letter-spacing: -0.01em;
+  font-weight: 700; 
+}
+
+h4 {
+  font-weight: 700; 
+  letter-spacing: -0.03em;
+}
+
+blockquote {
+	color: $color-dark;
+}
+
+h6, .xs, .btn {
+	text-transform: uppercase;
+	letter-spacing: 0.1em;
+	font-weight: 700;
+}
+
+b, strong, .strong {
+  font-weight: 700;
+}
+
+.title-sub, .title {
+  float: left; 
+}
+
+.title-sub {
+  color: $color-brand;
+  border-left: $color-neutral dotted 1px;
+  padding-left: 1.5em;
+  line-height: 1.4em;
+  padding-top: 2em;
+  padding-bottom: 1.25em;
+}
+
+.absolute {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.height-full {
+	min-height: 100%;
+}
+
+.height-unit-l {
+	height: $base-unit * $base-unit-l * 1em;
+}
+
+.margin-left-s {
+	margin-left: $base-unit-s * 1em; 
+}
+
+hr {
+	border: 0;
+	height: 0;
+	border-top: 1px dotted $color-neutral;
+	border-bottom: 1px dotted $color-clear;
+	margin-bottom: $base-unit-xs - $base-unit-xxs * 1rem;
+}
+
+.pad {
+	padding: 16px;
+}
+
+.pad-h {
+	padding-right: 16px;
+	padding-left: 16px;
+}
+
+.label {
+	padding: 0 0.8em;
+	text-align: center;
+	color: white;
+	background-color: #bcb9af;
+	float: left;
+}
+
+.label-color {
+	padding: 0 0.8em;
+	text-align: center;
+	color: white;
+	background-color: #9b4458;
+	margin-bottom: 0.75rem;
+	float: left;
+}
+
+.label-small-color {
+	padding: 0.2em 0.6em 0.25em 0.5em;
+	text-align: center;
+	color: white;
+	background-color: #9b4458;
+}
+
+.relative {
+	position: relative;
+}
+.labels {
+	position: absolute;
+	top: 0;
+	left: 0;
+	right: 0;
+}
+
+#content, #content img {
+	opacity: 1; 
+}
+
+nav {
+  margin-bottom: 0.5em;
+  display: block;
+  border-left: $color-neutral dotted 1px;
+}
+
+nav > .btn {
+  text-align: left;
+  padding-top: 4.25em;
+  width: 11.36em;
+  color: $color-dark;
+  border-right: $color-neutral dotted 1px;
+}
+
+nav .btn.active, nav .btn.active:hover {
+  color: $color-brand;
+  background-color: $color-clear;
+}
+
+.circle {
+  border-radius: 50%;
+  overflow: hidden;
+  margin: 1.5em;
+  border: $color-clear 10px solid;
+}
+.circle div {
+    display: block;
+/* Stretch 
+      height: 100%;
+      width: 100%; */
+min-width: 100%;
+min-height: 100%;
+}
+
+.icon {
+  font-size: 1.5em;
+  margin-right: 0.25em;
+}

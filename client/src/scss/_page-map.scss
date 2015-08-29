@@ -1,0 +1,144 @@
+$color-green: #B6EA00; 
+
+#map {
+  position: relative;
+  overflow: hidden;
+}
+
+#handle, #calendarhandle, #speedhandle {
+  fill: $color-brand;
+  cursor: pointer;
+}
+
+#timeline svg, #calendar svg, #speed svg  {
+  height: 40px;
+}
+
+#timeline svg text, #calendar svg text, #speed svg text {
+  font-size: 0.75em;
+}
+
+#timeline .domain, #calendar  .domain, #speed  .domain  {
+  fill: $color-dark;
+}
+
+.coord {
+  position: absolute;
+  bottom: 10px;
+  left: 10px;
+}
+
+.timeline {
+  position: relative;
+  height: 40px;
+}
+
+#info {
+  position: absolute;
+  right: 0;
+  top: 0;
+  font-size: 0.75em;
+  margin-top: 0.5rem;
+  margin-right: 0.5rem;
+}
+
+.info-bloc {
+  width: 13.5rem;
+  background-color: white;
+  padding: 1px 5px;
+  display: flex;
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.25rem;
+  animation: fadein 1s;
+}
+
+@keyframes fadein {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+.info-bloc.margin-bottom-xxs {
+  padding-bottom: 0.25rem;
+}
+
+.route-info-step {
+  width: 1.2rem;
+  height: 1.2rem;
+  margin-right: 0.5rem;
+  background-color: #000;
+  color: #fff;
+  font-size: 0.8em;
+  font-weight: 700;
+  border-radius: 50%;
+  padding: 0;
+  text-align: center;
+  display: inline-block;
+  padding-top: 0.25em;
+}
+
+.route-info-time {
+  width: 1.8rem;
+  margin-right: 0.5rem;
+  font-weight: 700;
+}
+.dock-name { 
+  font-weight: 700;
+}
+
+.route-info-name {
+  width: 8rem;
+  margin-right: 0.5rem;
+}
+
+
+.tick line {
+  stroke: $color-neutral;
+}
+
+.axis {
+  shape-rendering: crispEdges;
+}
+
+.x.axis line {
+  stroke: lightgrey;
+}
+
+.x.axis .minor {
+  stroke-opacity: .5;
+}
+
+.x.axis path {
+  display: none;
+}
+
+.y.axis line, .y.axis path {
+  fill: none;
+  stroke: $color-neutral;
+}
+.bg {
+  background-color: $color-base-bg;
+  padding: 0.25em 0.5em 0.25em 0;
+}
+.bg-neutral {
+  background-color: $color-clear;
+}
+.dock-qty {
+  fill: $color-green;
+}
+.dock-bg {
+  fill: grey;
+} 
+
+.dock-dot {
+  fill: $color-dark;
+  stroke: $color-base-bg;
+}
+.bike {
+  fill: $color-brand;
+  stroke: $color-base-bg;
+}
+.bike:hover {
+  fill: $color-base-bg;
+  stroke: $color-brand;
+}
