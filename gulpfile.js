@@ -110,4 +110,4 @@ gulp.task('dev', ['webpack', 'dist', 'nodemon']);
 
 gulp.task('dev-styles', ['dist', 'fonts', 'img', 'monitor-styles', 'nodemon']);
 
-gulp.task('deploy', ['webpack']);
+gulp.task('deploy', ['dist', 'fonts', 'img', 'webpack']);
