@@ -2,31 +2,31 @@ var bikeRoutes = require('../json/bikeRoutesJson');
 var Docks = require('../json/docksPositionJson');
 
 module.exports = {
-  calcDockHash: function(){
+  calcDockHash: function () {
+    var i;
     var tripHash = {};
     var mins = 0;
     var hours = 0;
-    
-    for (var i = 0; i < 1440; i++){
-        var time = this.countTime(hours, mins);
-        hours = time[0];
-        mins = time[1];
-        time = time.join(":");
-        tripHash[time] = {"starting_trips": [], "ending_trips": []};
+    for (i = 0; i < 1440; i++) {
+      var time = this.countTime(hours, mins);
+      hours = time[0];
+      mins = time[1];
+      time = time.join(":");
+      tripHash[time] = {
+        "starting_trips": [],
+        "ending_trips": []
+      };
     };
-
     return tripHash;
   },
 
-
-
-  countTime: function(hours, mins){
+  countTime: function (hours, mins) {
     var countHours, countMins;
     mins++
     if (mins === 60) {
       hours++;
       mins = 0;
-      if (hours === 24){
+      if (hours === 24) {
         hours = 0;
       }
     }
@@ -35,9 +35,8 @@ module.exports = {
 
     if (mins < 10) {
       countMins = "0" + mins;
-    }
-    else {
-      countMins = ""+ mins;
+    } else {
+      countMins = "" + mins;
     }
     return [countHours, countMins];
   },
@@ -50,26 +49,25 @@ module.exports = {
     for (var i = 0; i < hits; i++) {
       var trip = tripJson[i];
 
-      if(trip){
+      if (trip) {
         var startTime = trip.start_date.split(" ")[1];
         var endTime = trip.end_date.split(" ")[1];
-        
+
         dockHash[startTime].starting_trips.push(trip.start_terminal);
-        
-        if (trip.start_date.split(" ")[0] === trip.end_date.split(" ")[0]){
+
+        if (trip.start_date.split(" ")[0] === trip.end_date.split(" ")[0]) {
           dockHash[endTime].ending_trips.push(trip.end_terminal);
         }
       }
     };
 
     for (var k = 0; k < docks.docksJson.features.length; k++) {
-      if (dockInit[k]){
+      if (dockInit[k]) {
         docks.docksJson.features[k].properties.activity.push({
           "time": "0:00",
           "bikes_available": parseInt(dockInit[k].bikes_available)
         });
-      }
-      else {
+      } else {
         docks.docksJson.features[k].properties.activity.push({
           "time": "0:00",
           "bikes_available": parseInt(docks.docksJson.features[k].properties.places)
@@ -108,16 +106,15 @@ module.exports = {
     return docks.docksJson;
   },
 
-  buildBikesJson: function (json) {
+  buildBikesJson: function(json) {
     var hits = json.length;
     var bikesJson = {
       "type": "FeatureCollection",
       "features": []
     };
     for (var i = 0; i < hits; i++) {
-      var trip = json[i];  
-
-      if (trip){
+      var trip = json[i];
+      if (trip) {
         var duration = trip["trip_duration"];
         var startTerminal = trip["start_terminal"];
         var startStation = trip["start_station"];
@@ -139,7 +136,7 @@ module.exports = {
     return bikesJson;
   },
 
-  buildBikeJson: function (duration, startTerminal, startDate, startTime, endTerminal, endDate, endTime, bikeID, tripID, startStation, endStation) {
+  buildBikeJson: function(duration, startTerminal, startDate, startTime, endTerminal, endDate, endTime, bikeID, tripID, startStation, endStation) {
     var coordinates = bikeRoutes[startTerminal + "-" + endTerminal];
     var geoJson = null;
     if (!coordinates) {
@@ -163,8 +160,8 @@ module.exports = {
           "endDate": endDate,
           "endTime": endTime,
           "startTerminal": startTerminal,
-          "endTerminal": endTerminal, 
-          "startStation": startStation, 
+          "endTerminal": endTerminal,
+          "startStation": startStation,
           "endStation": endStation
         },
         "geometry": {
