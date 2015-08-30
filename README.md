@@ -1,3 +1,5 @@
-# Brilliant-Catapult
+# Data Cycles
 
-[![Stories in Ready](https://badge.waffle.io/BrilliantCatapult/data-cycles.svg?label=ready&title=Ready)](http://waffle.io/BrilliantCatapult/data-cycles) [![Join the chat at https://gitter.im/BrilliantCatapult/data-cycles](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/BrilliantCatapult/data-cycles?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
+Data Cycles uses a year’s worth of Bay Area Bike Share data to create a simulated real-time visualization.
+
+This is a striped down version of [this project](https://github.com/BrilliantCatapult/data-cycles). I removed a lot of the code and only a few functionalities. 

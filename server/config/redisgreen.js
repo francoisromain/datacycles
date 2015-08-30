@@ -7,7 +7,7 @@ var redisClient = redis.createClient(redisgreen.port, redisgreen.hostname);
 // redisClient.auth(redisgreen.auth.split(":")[1]);
 
 redisClient.on('connect', function(){
-  console.log('connected to redis GREEEN! =D');
+  console.log('connected to RedisGreen.');
 });
 
 module.exports = redisClient;
