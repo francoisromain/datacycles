@@ -19,7 +19,8 @@ var realtime;
 var bikesJson;
 var bikes = [];
 var docks = [];
-var speed = 10;
+
+var speed = 15;
 var speedMax = 1;
 var speedMin = 20;
 

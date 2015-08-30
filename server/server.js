@@ -11,7 +11,7 @@ app.use(compression());
 
 
 /** middleware passing in the app and the express package */
-require('./config/middleware.js')(app, express);
+require('./middleware.js')(app, express);
 
 
 module.exports = app;

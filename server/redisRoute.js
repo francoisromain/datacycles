@@ -1,4 +1,4 @@
-var redisController = require('../controllers/redisController.js');
+var redisController = require('./redisController.js');
 
 module.exports = function (app) {
   app.get('/', redisController.get);
