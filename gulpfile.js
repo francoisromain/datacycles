@@ -16,26 +16,28 @@ var gutil = require("gulp-util");
 var webpack = require("webpack");
 var WebpackDevServer = require("webpack-dev-server");
 
-gulp.task("webpack", function(callback) {
-    // run webpack
-    webpack({
-      entry: './client/src/js/map.js',
-      output: {
-        path: './client/dist/js/',
-        filename: 'bundle.js'
-      },
-      plugins: [
-        new webpack.optimize.UglifyJsPlugin(), 
-        new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
-      ],
-      devtool: 'source-map'
-    }, function(err, stats) {
-        if(err) throw new gutil.PluginError("webpack", err);
-        gutil.log("[webpack]", stats.toString({
-            // output options
-        }));
-        callback();
-    });
+gulp.task("webpack", function (callback) {
+  // run webpack
+  webpack({
+    entry: './client/src/js/map.js',
+    output: {
+      path: './client/dist/js/',
+      filename: 'bundle.js'
+    },
+    plugins: [
+      new webpack.optimize.UglifyJsPlugin(),
+      new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
+    ],
+    devtool: 'source-map'
+  }, function (err, stats) {
+    if (err) {
+      throw new gutil.PluginError("webpack", err);
+    }
+    gutil.log("[webpack]", stats.toString({
+        // output options
+    }));
+    callback();
+  });
 });
 
 gulp.task('compass', function () {
@@ -108,4 +110,4 @@ gulp.task('dev', ['webpack', 'dist', 'nodemon']);
 
 gulp.task('dev-styles', ['dist', 'fonts', 'img', 'monitor-styles', 'nodemon']);
 
-gulp.task('deploy', ['usemin']);
+gulp.task('deploy', ['webpack']);
