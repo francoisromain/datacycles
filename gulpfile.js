@@ -25,8 +25,7 @@ gulp.task("webpack", function (callback) {
       filename: 'bundle.js'
     },
     plugins: [
-      new webpack.optimize.UglifyJsPlugin(),
-      new webpack.IgnorePlugin(/^\.\/locale$/, [/moment$/])
+      new webpack.optimize.UglifyJsPlugin()
     ],
     devtool: 'source-map'
   }, function (err, stats) {
@@ -98,6 +97,7 @@ gulp.task('img', function () {
 });
 
 gulp.task("nodemon", function () {
+  gulp.watch('client/src/js/*.js', ['webpack']);
   nodemon({
     script: 'index.js'
   });

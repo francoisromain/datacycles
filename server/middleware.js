@@ -16,7 +16,7 @@ module.exports = function (app, express) {
   app.use(helpers.errorHandler);
 
   app.get('*', function (req, res) {
-    res.send('404 File Not Found!', 404);
+    res.status(404).send('404 File Not Found!');
   });
 
   require('./redisRoute.js')(redisRouter);

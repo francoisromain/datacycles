@@ -22,7 +22,7 @@ module.exports = {
 
   countTime: function (hours, mins) {
     var countHours, countMins;
-    mins++
+    mins++;
     if (mins === 60) {
       hours++;
       mins = 0;
