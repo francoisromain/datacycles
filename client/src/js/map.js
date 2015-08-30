@@ -3,9 +3,9 @@ var d3geotile = require('d3.geo.tile')();
 var queue = require('queue-async');
 var helperFunctions = require('./processJson');
 
-var dateMinValue = '2013-08-29';
-var dateMaxValue = '2014-09-01';
-var start_date= "2013/12/18 08:00";
+var dateMin = '2013-08-29';
+var dateMax = '2014-09-01';
+var dateCurrent= "2013-12-18 08:00";
 var width, height;
 var second = 1000;
 var minute = 60 * second;
@@ -59,8 +59,8 @@ var formatMilliseconds = function (d) {
 
 
 var fetchNewDate = function () {
-  dateStartValue = formatTimeString(start_date, "%Y/%m/%d %H:%M", "%Y/%m/%d");
-  var tripStartDate = formatTimeString(start_date, "%Y/%m/%d %H:%M", "%-m/%-d/%Y");
+  var dateTrips = formatTimeString(dateCurrent, "%Y-%m-%d %H:%M", "%-m/%-d/%Y");
+  var dateDocks = formatTimeString(dateCurrent, "%Y-%m-%d %H:%M", "%Y/%m/%d");
 
   var ready = function (error, tripJson, docksJson) {
     if (error) {
@@ -68,34 +68,33 @@ var fetchNewDate = function () {
     }
     bikesJson = helperFunctions.buildBikesJson(tripJson);
     var docksHash = helperFunctions.buildDocksHash(tripJson, docksJson); 
-    console.log("here:", bikesJson);
     drawSvg(docksHash, bikesJson);
     renderZoom();
     loaded();
   };
 
   queue()
-    .defer(d3.json, "/api/redis/trips?start_date=" + tripStartDate)
-    .defer(d3.json, "/api/redis?start_date=" + dateStartValue)
+    .defer(d3.json, "/api/redis/trips?start_date=" + dateTrips)
+    .defer(d3.json, "/api/redis?start_date=" + dateDocks)
     .await(ready);
 };
 
 var calendarBrushing = function () {
-  var currentDate = calendarBrush.extent()[0];
+  var dateValue = calendarBrush.extent()[0];
   unload();
 
   if (d3.event.sourceEvent) { 
-    currentDate = calendarScale.invert(d3.mouse(this)[0]);
-    currentDateString = formatTime(currentDate, "%Y-%m-%d"); 
-    calendarBrush.extent([start_date, start_date]);
+    dateValue = calendarScale.invert(d3.mouse(this)[0]);
+    var dateValueString = formatTime(dateValue, "%Y-%m-%d"); 
+    calendarBrush.extent([dateCurrent, dateCurrent]);
 
     if (d3.event.sourceEvent.type === 'mouseup') {
-      start_date = formatTimeString(currentDateString + " " + formatMilliseconds(realtime), "%Y-%m-%d %H:%M", "%Y/%m/%d %H:%M");
+      dateCurrent = dateValueString + " " + formatMilliseconds(realtime);
       fetchNewDate();
     }
-    dateDisplay.html(currentDateString);
+    dateDisplay.html(dateValueString);
   }
-  calendarHandlePositionSet(currentDate);
+  calendarHandlePositionSet(dateValue);
 }; 
 
 var timeBrushing = function() {
@@ -119,10 +118,10 @@ var loaded = function () {
   button.attr("disabled", null);
   timeHandle.classed("hide", false);
   svgAnimations.select(".docks").classed("hide", false);
-  realtime = timeToMilliSeconds(formatTimeString(start_date, "%Y/%m/%d %H:%M", "%H:%M"));
+  realtime = timeToMilliSeconds(formatTimeString(dateCurrent, "%Y-%m-%d %H:%M", "%H:%M"));
   timer, timermemo = animscale.invert(realtime);
   setAnimDuration(speed);
-  dateDisplay.html(dateStartValue);
+  dateDisplay.html(formatTimeString(dateCurrent, "%Y-%m-%d %H:%M", "%Y-%m-%d"));
   setTimer(timermemo); 
   timeHandlePositionSet(realtime);
   speedHandlePositionSet(speed);
@@ -191,7 +190,6 @@ var renderFrame = function(e) {
   timer = (timermemo + e) % animduration;
   setTimer(timer); 
   timeHandlePositionSet(realtime); 
-
   moveBikes();
   setDockLevel();
 };
@@ -804,13 +802,13 @@ var speedHandle = speedSlider.append("polygon")
 // calendar
 
 var calendarScale = d3.time.scale()
-  .domain([new Date(dateMinValue), new Date(dateMaxValue)])
+  .domain([new Date(dateMin), new Date(dateMax)])
   .range([0, timelineWidth - (2 * margins)])
   .clamp(true);
 
 var calendarBrush = d3.svg.brush()
   .x(calendarScale)
-  .extent([new Date(dateStartValue), new Date(dateStartValue)])
+  .extent([new Date(dateCurrent), new Date(dateCurrent)])
   .on("brushstart", brushstart)
   .on("brush", calendarBrushing);
 
